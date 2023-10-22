@@ -7,8 +7,6 @@ import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBeanBuilder;
 
-
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
@@ -26,8 +24,10 @@ public class Main {
         writeString(json);
 
     }
-    public static List <Employee> parseCSV( String [] columnMapping, String fileName){
-        try {CSVReader csvReader = new CSVReader(new FileReader(fileName));
+
+    public static List<Employee> parseCSV(String[] columnMapping, String fileName) {
+        try {
+            CSVReader csvReader = new CSVReader(new FileReader(fileName));
             var strategy = new ColumnPositionMappingStrategy<Employee>();
             strategy.setType(Employee.class);
             strategy.setColumnMapping(columnMapping);
@@ -40,21 +40,22 @@ public class Main {
         }
         return null;
     }
-        public static String listToJson (List <Employee>list){
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            Gson gson = gsonBuilder.setPrettyPrinting().create();
-            Type listType = new TypeToken<List<Employee>>() {}.getType();
-            return gson.toJson(list,listType);
-        }
 
-        public static void writeString(String jsonString) {
-            try (FileWriter fileWriter = new FileWriter("data.json")){
-                fileWriter.write(jsonString);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+    public static String listToJson(List<Employee> list) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+        Type listType = new TypeToken<List<Employee>>() {
+        }.getType();
+        return gson.toJson(list, listType);
+    }
 
+    public static void writeString(String jsonString) {
+        try (FileWriter fileWriter = new FileWriter("data.json")) {
+            fileWriter.write(jsonString);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
 }
